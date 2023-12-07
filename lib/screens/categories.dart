@@ -6,22 +6,27 @@ import 'package:meals_app/screens/meals.dart';
 import 'package:meals_app/widgets/category_grid_item.dart';
 
 import '../models/category.dart';
+import '../models/meal.dart';
+
 
 
 class CategoriesScreen extends StatelessWidget{
-  const CategoriesScreen({super.key});
+  const CategoriesScreen({super.key, required this.onTogglefavorite});
+
+  final void Function(Meal meal) onTogglefavorite;
 
   void _selectCategory(BuildContext context,Category category) {
     final filteredMeals=dummyMeals.where((meals) => meals.categories.contains(category.id)).toList();
     Navigator.push(
         context,
         MaterialPageRoute(
-            builder: (context) => MealsScreen(title:category.title, meals: filteredMeals)));
+            builder: (context) => MealsScreen(title:category.title, meals: filteredMeals, onTogglefavorite: onTogglefavorite,)));
   }
 
   @override
   Widget build(BuildContext context) {
     return GridView(
+
         padding: EdgeInsets.all(12.0),
         gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
             crossAxisCount: 2,

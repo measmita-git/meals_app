@@ -1,18 +1,27 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
+
 import '../models/meal.dart';
 
 class MealDetailsScreen extends StatelessWidget{
-  const MealDetailsScreen({super.key,required this.meal});
+  const MealDetailsScreen({super.key,required this.meal, required this.onTogglefavorite});
 
   final Meal meal;
+  final void Function(Meal meal) onTogglefavorite;
 
 
   @override
   Widget build(BuildContext context){
     return Scaffold(
-      appBar: AppBar(),
+      appBar: AppBar(
+      actions: [
+        IconButton(onPressed: (){
+          onTogglefavorite(meal);
+        },icon: Icon(Icons.star)),
+      ],
+      ),
+
       body: SingleChildScrollView(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
